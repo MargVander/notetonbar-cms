@@ -1,6 +1,7 @@
 <template>
-  <div class="container">
+  <div class="container text-center">
     <h1>Gestion des bars</h1>
+    <router-link to="/bars/create" class="btn btn-primary mb-4 mt-2">Ajouter un bar</router-link>
     <table class="table table-striped">
       <thead>
         <tr>
@@ -8,6 +9,8 @@
           <th scope="col">Actif ?</th>
           <th scope="col">Voir info/Editer</th>
           <th scope="col">Supprimer</th>
+          <th scope="col">Gestion des images</th>
+          <th scope="col">Gestion des Reviews</th>
         </tr>
       </thead>
       <tbody>
@@ -15,11 +18,21 @@
           <td>{{ bar.name }}</td>
           <td v-if="bar.isactive">Oui</td>
           <td v-else>Non</td>
-          <td></td>
+          <td>
+            <router-link :to="'/bars/edit/' + bar.id">Éditer</router-link>
+          </td>
           <td v-if="bar.isactive">
             <button @click="deleteBar(bar.id)" class="btn btn-danger">X</button>
           </td>
           <td v-else />
+          <td>
+            {{bar.pictures.length}} image(s)
+            <router-link :to="'/bars/pictures/' + bar.id">Gérer</router-link>
+          </td>
+          <td class="d-flex">
+            <p v-if="bar.rating" >Note moyenne: {{bar.rating.avg_rating}} &nbsp;</p>
+            <router-link :to="'/bars/reviews/' + bar.id">Gérer</router-link>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -47,9 +60,18 @@ export default {
     },
     async deleteBar(id) {
       if (confirm("Êtes-vous sur ?")) {
+<<<<<<< HEAD
         await BarService.deleteBar(id, this.bearer).then(
           (this.bars.find((el) => el.id === id).isactive = false)
         );
+=======
+        await BarService.deleteBar(id).then(() => {
+          const toDelete = this.bars.findIndex(
+            bar => bar.id === id
+          );
+          this.bars.splice(toDelete, 1);
+        });
+>>>>>>> dev
       }
     },
     async deco() {

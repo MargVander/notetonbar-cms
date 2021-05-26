@@ -19,6 +19,26 @@ const routes = [
     path: '/bars',
     name: 'Bars',
     component: () => import('../modules/bars/barList.vue')
+  },
+  {
+    path: '/bars/create',
+    name: 'Create bar',
+    component: () => import('../modules/bars/barCreate.vue')
+  },
+  {
+    path: '/bars/edit/:id',
+    name: 'Edit bar',
+    component: () => import('../modules/bars/barEdit.vue')
+  },
+  {
+    path: '/bars/pictures/:id',
+    name: 'Picture management',
+    component: () => import('../modules/bars/barPictures.vue')
+  },
+  {
+    path: '/bars/reviews/:id',
+    name: 'Bar reviews management',
+    component: () => import('../modules/bars/barReviews.vue')
   }
 ]
 
