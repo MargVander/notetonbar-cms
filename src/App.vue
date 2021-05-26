@@ -1,9 +1,11 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/bars">Bars</router-link>
+  <div>
+    <div id="nav">
+      <router-link to="/">Home</router-link>|
+      <router-link to="/bars">Bars</router-link>
+    </div>
+    <router-view />
   </div>
-  <router-view/>
 </template>
 
 <style>
@@ -11,8 +13,12 @@
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
+}
+
+h1,
+#nav {
+  text-align: center;
 }
 
 #nav {
