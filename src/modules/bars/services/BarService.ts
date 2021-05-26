@@ -1,9 +1,11 @@
 const uri = "http://localhost:3000";
-
 export default {
-    async fetchBars() {
+    async fetchBars(bearer) {
         return await fetch(uri + '/bars/all', {
             method: 'GET',
+            headers: {
+                "Authorization": `bearer ${bearer}`,
+            },
             mode: 'cors'
         })
             .then((res) => {
@@ -13,15 +15,18 @@ export default {
                 return datas
             })
     },
-    async deleteBar(id) {
+    async deleteBar(id, bearer) {
         return await fetch(uri + '/bars/' + id, {
             method: 'DELETE',
+            headers: {
+                "Authorization": `bearer ${bearer}`,
+            },
             mode: 'cors'
         })
-        .then((res) => {
-            console.log(res);
-            return res
-        })
+            .then((res) => {
+                console.log(res);
+                return res
+            })
     }
     // async fetchBar(id: number) {
     //     return await fetch(uri + '/bars/' + id, {
