@@ -1,12 +1,7 @@
 const uri = "http://localhost:3000";
 export default {
-<<<<<<< HEAD
     async fetchBars(bearer) {
-        return await fetch(uri + '/bars/all', {
-=======
-    async fetchBars() {
         return await fetch(uri + '/bars/', {
->>>>>>> dev
             method: 'GET',
             headers: {
                 "Authorization": `bearer ${bearer}`,
@@ -28,31 +23,26 @@ export default {
             },
             mode: 'cors'
         })
-<<<<<<< HEAD
             .then((res) => {
-                console.log(res);
                 return res
             })
-=======
-        .then((res) => {
-            return res
-        })
     },
-    async createBar(data) {
+    async createBar(data, bearer) {
         return await fetch(uri + '/bars', {
             method: 'POST',
             mode: 'cors',
             body: JSON.stringify(data),
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                "Authorization": `bearer ${bearer}`,
             }
         })
             .then((res) => {
                 return res
             })
     },
-    async editBar(id, data) {
+    async editBar(id, data, bearer) {
         delete data.pictures
         delete data.rating
         return await fetch(uri + '/bars/' + id, {
@@ -61,16 +51,20 @@ export default {
             body: JSON.stringify(data),
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                "Authorization": `bearer ${bearer}`,
             }
         })
             .then((res) => {
                 return res
             })
     },
-    async fetchBar(id) {
+    async fetchBar(id, bearer) {
         return await fetch(uri + '/bars/' + id, {
             method: 'GET',
+            headers: {
+                "Authorization": `bearer ${bearer}`,
+            },
             mode: 'cors'
         })
             .then((res) => {
@@ -80,9 +74,12 @@ export default {
                 return datas
             })
     },
-    async fetchReviews(id, limit = 0) {
+    async fetchReviews(id, limit = 0, bearer) {
         return await fetch(uri + '/bars/' + id + '/reviews?limit=' + limit, {
             method: 'GET',
+            headers: {
+                "Authorization": `bearer ${bearer}`,
+            },
             mode: 'cors'
         })
             .then((res) => {
@@ -92,14 +89,16 @@ export default {
                 return datas
             })
     },
-    async deleteReview(id) {
+    async deleteReview(id, bearer) {
         return await fetch(uri + '/reviews/' + id, {
             method: 'DELETE',
+            headers: {
+                "Authorization": `bearer ${bearer}`,
+            },
             mode: 'cors'
         })
-        .then((res) => {
-            return res
-        })
->>>>>>> dev
+            .then((res) => {
+                return res
+            })
     }
 }

@@ -20,10 +20,18 @@
       <tbody>
         <tr v-for="picture in pictures" :key="picture.id">
           <td>
-            <img v-bind:src="'http://localhost:3000/pictures/' + picture.path" alt />
+            <img
+              v-bind:src="'http://localhost:3000/pictures/' + picture.path"
+              alt
+            />
           </td>
           <td>
-            <button @click="deletePicture(picture.id, picture.path)" class="btn btn-danger">X</button>
+            <button
+              @click="deletePicture(picture.id, picture.path)"
+              class="btn btn-danger"
+            >
+              X
+            </button>
           </td>
         </tr>
       </tbody>
@@ -33,23 +41,27 @@
 
 <script>
 import PictureService from "./services/PictureService.ts";
+import { store } from "../../store.ts";
 export default {
   data() {
     return {
+      bearer: store.state.bearer,
       barId: this.$route.params.id,
       pictures: [],
-      selectPic: null
+      selectPic: null,
     };
   },
   methods: {
     async fetchPictures(id) {
-      await PictureService.fetchPictures(id).then(pictures => {
+      await PictureService.fetchPictures(id, this.bearer).then((pictures) => {
         this.pictures = pictures;
       });
     },
     async deletePicture(id, path) {
-      await PictureService.deletePicture(id, path).then(() => {
-        const toDelete = this.pictures.findIndex(picture => picture.id === id);
+      await PictureService.deletePicture(id, path, this.bearer).then(() => {
+        const toDelete = this.pictures.findIndex(
+          (picture) => picture.id === id
+        );
         this.pictures.splice(toDelete, 1);
       });
     },
@@ -57,16 +69,18 @@ export default {
       this.selectPic = event.target.files[0];
     },
     async uploadImage() {
-      await PictureService.uploadPicture(this.barId, this.selectPic).then(
-        data => {
-          this.pictures.push(data);
-        }
-      );
-    }
+      await PictureService.uploadPicture(
+        this.barId,
+        this.selectPic,
+        this.bearer
+      ).then((data) => {
+        this.pictures.push(data);
+      });
+    },
   },
   created() {
     this.fetchPictures(this.barId);
-  }
+  },
 };
 </script>
 

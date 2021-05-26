@@ -1,7 +1,9 @@
 <template>
   <div class="container text-center">
     <h1>Gestion des bars</h1>
-    <router-link to="/bars/create" class="btn btn-primary mb-4 mt-2">Ajouter un bar</router-link>
+    <router-link to="/bars/create" class="btn btn-primary mb-4 mt-2"
+      >Ajouter un bar</router-link
+    >
     <table class="table table-striped">
       <thead>
         <tr>
@@ -26,11 +28,13 @@
           </td>
           <td v-else />
           <td>
-            {{bar.pictures.length}} image(s)
+            {{ bar.pictures.length }} image(s)
             <router-link :to="'/bars/pictures/' + bar.id">Gérer</router-link>
           </td>
           <td class="d-flex">
-            <p v-if="bar.rating" >Note moyenne: {{bar.rating.avg_rating}} &nbsp;</p>
+            <p v-if="bar.rating">
+              Note moyenne: {{ bar.rating.avg_rating }} &nbsp;
+            </p>
             <router-link :to="'/bars/reviews/' + bar.id">Gérer</router-link>
           </td>
         </tr>
@@ -60,18 +64,10 @@ export default {
     },
     async deleteBar(id) {
       if (confirm("Êtes-vous sur ?")) {
-<<<<<<< HEAD
-        await BarService.deleteBar(id, this.bearer).then(
-          (this.bars.find((el) => el.id === id).isactive = false)
-        );
-=======
-        await BarService.deleteBar(id).then(() => {
-          const toDelete = this.bars.findIndex(
-            bar => bar.id === id
-          );
+        await BarService.deleteBar(id, this.bearer).then(() => {
+          const toDelete = this.bars.findIndex((bar) => bar.id === id);
           this.bars.splice(toDelete, 1);
         });
->>>>>>> dev
       }
     },
     async deco() {
