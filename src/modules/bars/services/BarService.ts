@@ -74,7 +74,7 @@ export default {
                 return datas
             })
     },
-    async fetchReviews(id, limit = 0, bearer) {
+    async fetchReviews(bearer, id, limit = 0) {
         return await fetch(uri + '/bars/' + id + '/reviews?limit=' + limit, {
             method: 'GET',
             headers: {

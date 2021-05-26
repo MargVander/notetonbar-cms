@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     async fetchReviews(id) {
-      BarService.fetchReviews(id, this.bearer).then((reviews) => {
+      BarService.fetchReviews(this.bearer, id).then((reviews) => {
         this.reviews = reviews;
       });
     },
