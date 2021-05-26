@@ -1,44 +1,50 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import Home from '../views/Home.vue'
+import Login from '../modules/auth/login.vue'
+import { store } from '../store.ts'
 
+const authguard = (to, from, next) => {
+  const token = store.getters.getToken;
+  if (token.access_token) {
+    next();
+  } else {
+    next('/')
+  }
+}
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    name: 'Login',
+    component: Login
   },
   {
     path: '/bars',
     name: 'Bars',
-    component: () => import('../modules/bars/barList.vue')
+    component: () => import('../modules/bars/barList.vue'),
+    beforeEnter: authguard
   },
   {
     path: '/bars/create',
     name: 'Create bar',
-    component: () => import('../modules/bars/barCreate.vue')
+    component: () => import('../modules/bars/barCreate.vue'),
+    beforeEnter: authguard
   },
   {
     path: '/bars/edit/:id',
     name: 'Edit bar',
-    component: () => import('../modules/bars/barEdit.vue')
+    component: () => import('../modules/bars/barEdit.vue'),
+    beforeEnter: authguard
   },
   {
     path: '/bars/pictures/:id',
     name: 'Picture management',
-    component: () => import('../modules/bars/barPictures.vue')
+    component: () => import('../modules/bars/barPictures.vue'),
+    beforeEnter: authguard
   },
   {
     path: '/bars/reviews/:id',
     name: 'Bar reviews management',
-    component: () => import('../modules/bars/barReviews.vue')
+    component: () => import('../modules/bars/barReviews.vue'),
+    beforeEnter: authguard
   }
 ]
 
