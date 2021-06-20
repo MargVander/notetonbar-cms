@@ -1,4 +1,5 @@
-const URI = 'http://localhost:3000'
+import config from '../../../config.ts'
+const URI = config.uri
 
 export default {
     login(mail, password) {

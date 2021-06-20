@@ -1,4 +1,5 @@
-const uri = "http://localhost:3000";
+import config from '../../../config.ts'
+const uri = config.uri;
 
 export default {
     async fetchPictures(id, bearer) {
